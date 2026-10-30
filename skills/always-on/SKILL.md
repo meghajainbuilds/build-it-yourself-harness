@@ -1,57 +1,42 @@
 ---
 name: always-on
-description: Keeps an agent running when the laptop is closed, on a Mac that stays awake (default) or a cloud server. Sets up auto restart, schedules, and logs. Use when the project must answer messages or run on a schedule.
+description: Keeps the project's agent running when the laptop is closed, on a Mac that stays awake (default) or a cloud server, with restart on crash, logs, and daily schedules. Use when the project acts on its own.
 ---
 
-# Always-on: an agent that doesn't sleep
+# always-on
 
-**Result:** a background process that starts on its own, restarts if it crashes, keeps a log, and can run tasks on a schedule.
+## Why
+Your agent works while you don't: answers texts, runs the morning summary, watches for things.
 
-## Pick where it runs
+## Choose
 
-Read `always_on.where` in `harness.config.json`.
-
-| Where | Cost | Pick it when |
+| Where | Cost | Best when |
 |---|---|---|
-| **mac** (default) | $0 if you own one | Using iMessage, or you have a Mac that stays plugged in |
-| **cloud** | about $5 to $20 a month | No spare Mac, or using Telegram/SMS instead of iMessage |
+| Mac (default) | $0 on a Mac you own | Using iMessage; a spare Mac or one that stays plugged in |
+| Cloud | about $5 to $20 a month | No spare Mac; using Telegram |
 
-iMessage needs a Mac. A Mac mini or an old MacBook that stays plugged in works well.
+## Build (Mac)
 
-## Mac setup
+macOS can start a program at login and restart it if it stops, using a LaunchAgent (a small settings file in your Library folder).
 
-macOS has a built-in way to keep programs running, called a LaunchAgent (a small settings file that tells the Mac to start your program at login and restart it if it stops).
-
-**Person does:**
-1. System Settings, Energy (or Battery, Options on a laptop): turn on **Prevent automatic sleeping when the display is off** and **Wake for network access**.
-2. Stays signed in to the Mac. LaunchAgents run only while the user is logged in.
-
-**Agent does:**
-1. Copy `templates/imessage-bridge/com.harness.agent.plist` to the project and replace the placeholders (`__PROJECT_DIR__`, `__PYTHON__`, `__HOME__`) with real paths. Find Python with `which python3` and the home folder with `echo $HOME`. Run `mkdir -p logs` in the project.
-2. Install it:
+1. **Your turn:** System Settings, Energy (on a laptop: Battery, Options). Turn on "Prevent automatic sleeping when the display is off" and "Wake for network access." Stay signed in to the Mac.
+2. `mkdir -p logs`
+3. Copy `templates/imessage-bridge/com.harness.agent.plist` into the project. Replace `__PROJECT_DIR__`, `__PYTHON__` (`which python3`), and `__HOME__` (`echo $HOME`).
+4. Install and start:
    ```
    cp com.harness.agent.plist ~/Library/LaunchAgents/
    launchctl load ~/Library/LaunchAgents/com.harness.agent.plist
    ```
-3. Show how to check it:
-   ```
-   launchctl list | grep harness
-   tail -f logs/agent.log
-   ```
-4. To stop it: `launchctl unload ~/Library/LaunchAgents/com.harness.agent.plist`
+5. Write the controls into `MAP.md`:
+   - Status: `launchctl list | grep harness`
+   - Logs: `tail -f logs/agent.log`
+   - Stop: `launchctl unload ~/Library/LaunchAgents/com.harness.agent.plist`
 
-**Check:** restart the Mac, sign in, and confirm `launchctl list | grep harness` shows it running without doing anything.
+**Schedules:** add entries to `schedules` in `bridge/config.json` with a time and a prompt file in `prompts/`. Prompts live in GitHub, so they're versioned.
 
-## Scheduled tasks
+## Build (cloud)
+Pick a host that keeps one process running and restarts it (Railway, Fly.io, or Render; check current free tiers). Add a `Dockerfile`, set secrets in the host's dashboard, turn on restart. Pair with Telegram in `messaging`.
 
-For "every morning at 7" style tasks, add a second LaunchAgent with `StartCalendarInterval`, or put a `schedules` list in the bridge config (see `templates/imessage-bridge/README.md`). Keep scheduled prompts in files under `prompts/` so they live in GitHub.
-
-## Cloud setup
-
-If `where` is `cloud`: pick a host that runs a long running process and restarts it (Railway, Fly.io, or Render; check current free tiers). Package the agent loop with a `Dockerfile`, set secrets in the host's dashboard, and turn on auto restart. Use the `messaging` block with Telegram or SMS, since iMessage can't run in the cloud.
-
-**Check:** close the laptop, send a test message, and get a reply.
-
-## Update HARNESS.md
-
-Record where it runs, how to start, stop and view logs, and any schedules.
+## Prove
+- Agent: status shows running; the log shows "bridge running."
+- Person: restarts the Mac, signs in, touches nothing, and status still shows running.

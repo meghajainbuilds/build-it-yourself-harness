@@ -1,50 +1,37 @@
 ---
 name: messaging
-description: Lets the person text their agent and get replies. iMessage on a Mac is the default, with Telegram as the option that works anywhere. Use when the project should talk to someone through text messages.
+description: Lets the person text their agent and get replies, through iMessage on a Mac (default) or Telegram anywhere. Only approved senders are answered. Use when the project should talk by text.
 ---
 
-# Messaging: text your agent
+# messaging
 
-**Result:** you text a number or email you own, your agent reads it, thinks, and texts back. Only approved senders get answers.
+## Why
+The most natural interface is the one already on your phone.
 
-## Default: iMessage (Mac only)
+## Choose
 
-The bridge in `templates/imessage-bridge/` does three things:
-1. Reads new incoming texts from the Messages database on the Mac
-2. Passes each approved text to your agent command (`claude` or `codex`)
-3. Sends the agent's reply back through the Messages app
+| Channel | Needs | Notes |
+|---|---|---|
+| iMessage (default) | A Mac with Messages signed in | Replies come from that Apple ID |
+| Telegram | Any computer or cloud | A free bot token |
 
-### Person does
+For iMessage, decide which Apple ID the agent texts from. A separate Apple ID is cleanest. Your own works too, since only approved senders get answers.
 
-1. **Pick the account the agent texts from.** Best: a separate Apple ID signed in to Messages on the always-on Mac, so your own texts aren't mixed in. Simplest: your own Apple ID, and the bridge only answers people on the allowlist.
-2. **Grant Full Disk Access** so the bridge can read Messages: System Settings, Privacy & Security, Full Disk Access, click +, and add the Python app the agent names (and Terminal if testing by hand).
-3. **Allow automation** the first time it sends: macOS asks if it can control Messages. Click OK.
+## Build (iMessage)
 
-### Agent does
+`templates/imessage-bridge/` reads new texts on the Mac (read only), passes approved ones to the agent from `models`, and sends the reply through Messages.
 
-1. Copy `templates/imessage-bridge/` into the project as `bridge/`.
-2. Create `bridge/config.json` from `config.example.json`:
-   - `allowed_senders`: phone numbers in `+1XXXXXXXXXX` format, or Apple ID emails. **Required.** The bridge refuses to start if it's empty.
-   - `agent_command`: from `harness.config.json`, `models.agent_command`
-   - `project_dir`: where the agent runs, so it reads the project's AGENTS.md
-3. Run `python3 bridge/bridge.py --check` and fix anything it flags.
-4. Test by hand: run `python3 bridge/bridge.py` in Terminal, have the person text "hi" from an allowed number, watch the reply arrive, then press Control+C.
-5. Then install it as always-on (see `always-on` block).
+1. Copy it into the project as `bridge/`.
+2. Create `bridge/config.json` from the example. Fill `allowed_senders` (`+1XXXXXXXXXX` or Apple ID emails; the bridge won't start without at least one), `agent_command`, and `project_dir`.
+3. **Your turn:** System Settings, Privacy & Security, Full Disk Access, click +, add the app running Python (Terminal while testing). This lets the bridge read Messages.
+4. Run `python3 bridge/bridge.py --check` and fix anything it flags.
+5. Run `python3 bridge/bridge.py`. **Your turn:** text it from an approved phone. The first reply triggers a macOS prompt to let it control Messages; click OK. Press Control+C when done.
+6. Hand it to `always-on`.
 
-**Check:** text "What's 2+2?" from an allowed phone and get a reply within about a minute. Text from a number not on the list and get no reply.
+## Build (Telegram)
+1. **Your turn:** message @BotFather, send `/newbot`, and paste the token into `.env` as `TELEGRAM_BOT_TOKEN`.
+2. Write a bot loop that polls for updates, checks the sender's ID against an allowlist, runs the agent command, and replies.
 
-### Things to know
-
-- Replies come from whichever Apple ID is signed in to Messages on that Mac.
-- The bridge saves the last message it handled in `bridge/state.json`, so it never replays old texts after a restart.
-- Newer macOS versions store some message text in a coded field. The bridge decodes the common case. If a text arrives empty in the log, update to the newest bridge.
-
-## Option: Telegram (any computer or cloud)
-
-1. Person messages @BotFather in Telegram, sends `/newbot`, and copies the token **into `.env` as `TELEGRAM_BOT_TOKEN`**, not into chat.
-2. Agent writes a small bot loop that long polls `getUpdates`, checks the sender's user ID against an allowlist, runs the agent command, and replies with `sendMessage`.
-3. Run it under the `always-on` block.
-
-## Update HARNESS.md
-
-Record the channel, the sending account (not passwords), the allowlist size, and the test result.
+## Prove
+- Agent: `--check` reports all good.
+- Person: texts "What's 2+2?" from an approved phone and gets an answer; texts from an unapproved number and gets nothing.

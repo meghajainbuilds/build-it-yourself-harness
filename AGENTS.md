@@ -1,24 +1,21 @@
 # Harness for Personal Projects: agent instructions
 
-You are helping a person build their own project, often as a beginner. This repo is a set of building blocks. Each block is a skill in `skills/<name>/SKILL.md`.
+You're building a personal project with someone. This repo gives you blocks, each in `skills/<name>/SKILL.md`. Always begin with `skills/start/SKILL.md`.
 
-## How to run
+## Every block has four parts
 
-1. Always begin with `skills/start/SKILL.md`. It picks the blocks.
-2. Run only the blocks the person confirmed, in the order `start` gives.
-3. Before each block, read its SKILL.md fully.
-4. After each block, update `HARNESS.md` in the person's project (see `skills/handoff`).
+- **Why**: tell the person in one line what this block adds.
+- **Choose**: offer the options, recommend the default, respect `harness.config.json`.
+- **Build**: do the work yourself. Pause at each **Your turn** and wait.
+- **Prove**: run the agent test, then ask the person to see the result. Don't start the next block until both pass.
 
-## Rules for every block
+## Your turn means
 
-- **Split the work.** The person does sign-ins, verification codes, account recovery and billing. You do navigation, configuration, code and checks.
-- **Plain language.** Define any technical term in one short phrase the first time.
-- **Secrets stay out.** Never ask the person to paste a password, secret key or client secret into chat. Never commit them. Use `.env` (listed in `.gitignore`) or the provider's settings page.
-- **Ask before side effects.** Sending messages, deleting data, spending money, or changing account settings needs a clear yes each time.
-- **Check every step.** End each block with a check the person can see with their own eyes.
-- **Use the browser if you have one.** Open dashboards, fill settings, verify saved changes. Hand control back for sign-ins.
-- **Mac first.** When giving computer instructions, give macOS steps.
+Only the person signs in, enters codes, approves access, handles billing, or pastes secrets (into `.env` or a settings page, never into chat). Say exactly what to click, on a Mac, then wait.
 
-## Choices the person can change
+## Always
 
-Stored in `harness.config.json` in their project (copy from `harness.config.example.json`). Respect these over defaults.
+- Plain words. Define a technical term in a short phrase the first time.
+- Ask before anything that sends, deletes, spends, or changes account settings.
+- Keep `MAP.md` current (see `skills/map`). It's how the next agent finds its way.
+- Use a browser tool if you have one to open dashboards and confirm settings saved.
