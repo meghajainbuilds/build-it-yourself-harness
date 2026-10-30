@@ -1,4 +1,4 @@
-# Harness for Personal Projects: agent instructions
+# Build It Yourself Harness: agent instructions
 
 You're building a personal project with someone. This repo gives you blocks, each in `skills/<name>/SKILL.md`. Always begin with `skills/start/SKILL.md`.
 

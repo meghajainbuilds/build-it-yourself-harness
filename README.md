@@ -1,4 +1,4 @@
-# Harness for Personal Projects
+# Build It Yourself Harness
 
 Tell your coding agent what you're building. The harness gives it the right parts, in the right order, and proves each one works before moving on.
 
@@ -38,13 +38,13 @@ Most projects are one of these shapes. The `start` block recognizes them.
 
 **Claude Code**
 ```
-/plugin marketplace add YOUR_GITHUB/personal-projects-harness
-/plugin install personal-projects-harness
+/plugin marketplace add YOUR_GITHUB/build-it-yourself-harness
+/plugin install build-it-yourself-harness
 ```
 
 **Codex and other agents**
 ```
-npx skills add YOUR_GITHUB/personal-projects-harness
+npx skills add YOUR_GITHUB/build-it-yourself-harness
 ```
 
 ## Use
@@ -74,6 +74,10 @@ Use the harness. I'm building [your idea].
 ## What it costs
 
 Free tiers cover the starting setup. Plan on your AI coding subscription, plus about $5 to $20 a month if you run always-on in the cloud instead of on a Mac. Check provider pricing pages; prices change.
+
+## Acknowledgments
+
+Thanks to Rose Yao, whose guide [Set Up Once. Start Building.](https://roseyao.com/agents/get-started) showed how much setup a coding agent can carry for a beginner, and sparked the idea for this harness.
 
 ## License
 

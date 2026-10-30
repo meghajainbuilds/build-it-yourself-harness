@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-iMessage bridge for Harness for Personal Projects.
+iMessage bridge for Build It Yourself Harness.
 
 Reads new incoming iMessages on this Mac, sends approved ones to your coding
 agent (Claude Code, Codex, or any command), and texts the reply back.
