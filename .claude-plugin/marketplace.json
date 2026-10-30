@@ -1,0 +1,13 @@
+{
+  "name": "personal-projects-harness",
+  "owner": {
+    "name": "Megha Jain"
+  },
+  "plugins": [
+    {
+      "name": "personal-projects-harness",
+      "source": "./",
+      "description": "Building blocks for personal projects. Pick what you need."
+    }
+  ]
+}

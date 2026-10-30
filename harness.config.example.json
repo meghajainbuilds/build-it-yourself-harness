@@ -1,0 +1,21 @@
+{
+  "project_name": "my-project",
+  "coding_agent": "claude-code",
+  "blocks": ["foundation", "always-on", "messaging"],
+  "publish": {
+    "host": "netlify",
+    "sign_in": "google"
+  },
+  "always_on": {
+    "where": "mac"
+  },
+  "messaging": {
+    "channel": "imessage",
+    "allowed_senders": ["+12065550100"]
+  },
+  "models": {
+    "agent_command": "claude",
+    "app_provider": "anthropic",
+    "app_model": "claude-sonnet-5-5"
+  }
+}

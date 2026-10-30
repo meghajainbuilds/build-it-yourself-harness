@@ -1,0 +1,7 @@
+{
+  "name": "personal-projects-harness",
+  "description": "Building blocks for personal projects. Pick what you need.",
+  "version": "0.1.0",
+  "skills": "./skills",
+  "instructions": "./AGENTS.md"
+}

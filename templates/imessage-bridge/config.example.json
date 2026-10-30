@@ -1,0 +1,15 @@
+{
+  "allowed_senders": ["+12065550100", "you@example.com"],
+  "agent_command": "claude",
+  "project_dir": "/Users/YOU/Projects/my-project",
+  "poll_seconds": 5,
+  "agent_timeout_seconds": 300,
+  "schedules": [
+    {
+      "name": "morning",
+      "time": "07:00",
+      "prompt_file": "prompts/morning.md",
+      "send_to": "+12065550100"
+    }
+  ]
+}

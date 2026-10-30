@@ -1,0 +1,10 @@
+{
+  "name": "personal-projects-harness",
+  "description": "Building blocks for personal projects: foundation, publish, always-on agents, iMessage, and model choice. Pick what you need.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Megha Jain"
+  },
+  "license": "MIT",
+  "keywords": ["harness", "personal-projects", "always-on", "imessage", "supabase", "netlify", "vercel"]
+}
