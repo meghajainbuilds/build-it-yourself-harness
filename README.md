@@ -22,6 +22,7 @@ This repo packages those parts as **blocks**. Your agent picks the blocks your p
 | `always-on` | Keeps running with your laptop closed | A Mac that stays awake | A cloud server |
 | `messaging` | Text it, it texts back | iMessage | Telegram |
 | `map` | A living map of your project for the next agent | Always included | |
+| `status` | Where you are, what's next | Say "status" anytime | |
 
 ## Shapes
 
@@ -54,6 +55,24 @@ In an empty folder, tell your agent:
 ```
 Use the harness. I'm building [your idea].
 ```
+
+## What you'll see
+
+Right after you describe your project, your agent shows the whole plan, and updates it as you go:
+
+```
+Meal-prep  |  Web app with AI
+
+  done   1. Foundation   your code and data have a home
+  NOW    2. Publish      putting it on the web
+  next   3. Models       choosing the AI that writes menus
+
+Right now:  Netlify is connected. Next, Google sign-in.
+Your turn:  nothing yet. I'll tell you when.
+Time left:  about 30 minutes
+```
+
+Lost track, or back after a break? Just say **status**.
 
 ## How every block works
 

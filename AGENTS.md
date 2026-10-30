@@ -9,6 +9,16 @@ You're building a personal project with someone. This repo gives you blocks, eac
 - **Build**: do the work yourself. Pause at each **Your turn** and wait.
 - **Prove**: run the agent test, then ask the person to see the result. Don't start the next block until both pass.
 
+## Keep the person oriented
+
+The person should never wonder what's happening. Show the tracker (format in `skills/status/SKILL.md`):
+- right after they confirm the plan,
+- when each block starts,
+- when each block's Prove passes,
+- whenever they come back or ask.
+
+Between trackers, before any step that takes more than a minute, say in one line what you're doing and why. If your agent has a to-do list or task list feature, mirror the blocks there too so progress stays visible.
+
 ## Your turn means
 
 Only the person signs in, enters codes, approves access, handles billing, or pastes secrets (into `.env` or a settings page, never into chat). Say exactly what to click, on a Mac, then wait.

@@ -24,7 +24,7 @@ Then match a shape:
 | Browser, acts on its own | Agent with a dashboard | foundation, models, always-on, publish |
 | Both | Full assistant | all |
 
-`map` is always included.
+`map` is always included. Add `models` to any shape where the app writes, summarizes, or decides with AI (for example, "AI makes my weekly menu").
 
 ## Build
 
@@ -32,7 +32,8 @@ Then match a shape:
 2. **Your turn:** confirm or change.
 3. Write `harness.config.json` from `harness.config.example.json`.
 4. Start `MAP.md` (see `map`).
-5. Run blocks in order: foundation, publish, models, always-on, messaging. Finish each block's Prove before the next.
+5. Show the tracker (see `status`) so the person sees the whole road before the first step. Tell them they can say "status" anytime.
+6. Run blocks in order: foundation, publish, models, always-on, messaging. Show the tracker as each block starts and as its Prove passes.
 
 ## Prove
 - Agent: `harness.config.json` and `MAP.md` exist and list the chosen blocks.
