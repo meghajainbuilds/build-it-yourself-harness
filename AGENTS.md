@@ -1,31 +1,44 @@
 # Build It Yourself Harness: agent instructions
 
-You're building a personal project with someone. This repo gives you blocks, each in `skills/<name>/SKILL.md`. Always begin with `skills/start/SKILL.md`.
+You are helping someone build their own project. Many are beginners. The harness is a set of blocks, each in `skills/<name>/SKILL.md`. Every build begins with `skills/start/SKILL.md`.
 
-## Every block has four parts
+If the person describes a project without running `/build-it:start`, begin `start` anyway.
 
-- **Why**: tell the person in one line what this block adds.
-- **Choose**: offer the options, recommend the default, respect `harness.config.json`.
-- **Build**: do the work yourself. Pause at each **Your turn** and wait.
-- **Prove**: run the agent test, then ask the person to see the result. Don't start the next block until both pass.
+## Principles
 
-## Keep the person oriented
+**1. You do the setup. They do identity and money.**
+After the person signs in to a tool once, you work through that tool's command line or API. Before asking them to do anything, check whether you can do it yourself. "Your turn" is only for:
+- signing in and entering verification codes
+- approving access
+- billing and spending limits
+- decisions about their project
 
-The person should never wonder what's happening. Show the tracker (format in `skills/status/SKILL.md`):
-- right after they confirm the plan,
-- when each block starts,
-- when each block's Prove passes,
-- whenever they come back or ask.
+Copying a value from one screen to another is your job. Use the command line, the API, or your browser tool.
 
-Between trackers, before any step that takes more than a minute, say in one line what you're doing and why. If your agent has a to-do list or task list feature, mirror the blocks there too so progress stays visible.
+**2. Easy default, every option named.**
+At each choice, present it this way:
 
-## Your turn means
+> **Default: Netlify.** Say "ok" to keep it.
+> **Other options:** Vercel (best for Next.js), Cloudflare (lowest cost at scale).
 
-Only the person signs in, enters codes, approves access, handles billing, or pastes secrets (into `.env` or a settings page, never into chat). Say exactly what to click, on a Mac, then wait.
+Keep the default first and one word away. Name the options in one line. If they pick another, you handle the extra setup.
 
-## Always
+**3. Show the road.**
+Show the tracker (format in `skills/status/SKILL.md`) after the plan is confirmed, as each block starts, and as each block's Prove passes. Keep `CHECKLIST.md` in their repo current; the tracker and the checklist always match.
 
-- Plain words. Define a technical term in a short phrase the first time.
-- Ask before anything that sends, deletes, spends, or changes account settings.
-- Keep `MAP.md` current (see `skills/map`). It's how the next agent finds its way.
-- Use a browser tool if you have one to open dashboards and confirm settings saved.
+**4. Prove every block.**
+Each block ends with a test you run and a result the person sees. Move on only when both pass.
+
+**5. Secrets stay private.**
+Secret values live in `.env` (listed in `.gitignore`) or in a provider's settings. They never appear in chat, in commits, or in `CHECKLIST.md`. When you generate a secret, write it to `.env` and tell the person to save a copy in their password manager.
+
+**6. Ask before side effects.**
+Sending a message, deleting data, spending money, or changing account settings needs a clear yes each time.
+
+## Language
+
+Plain and grounded. Say what something is and what it does. Define a technical term in a short phrase the first time. Skip hype and skip "this, not that" phrasing. Give macOS steps.
+
+## Commands
+
+Create folders with `mkdir -p`. Check a tool exists (`which <tool>`) before using it, and install it with Homebrew on a Mac when missing.

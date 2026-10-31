@@ -1,7 +1,7 @@
 {
   "project_name": "my-project",
   "coding_agent": "claude-code",
-  "blocks": ["foundation", "always-on", "messaging"],
+  "blocks": ["github", "database", "models", "always-on", "messaging"],
   "publish": {
     "host": "netlify",
     "sign_in": "google"

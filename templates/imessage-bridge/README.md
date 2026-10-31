@@ -5,7 +5,7 @@ Text your agent from your phone. It reads, thinks, and texts back.
 ## How it works
 
 1. Every few seconds, reads new incoming texts from the Messages database on this Mac (read only)
-2. Ignores anyone not in `allowed_senders`
+2. Answers only the people listed in `allowed_senders`
 3. Passes the text to your agent command (`claude`, `codex`, or your own)
 4. Sends the reply through the Messages app
 5. Runs any `schedules` once a day at their time

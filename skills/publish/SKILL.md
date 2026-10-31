@@ -1,43 +1,45 @@
 ---
 name: publish
-description: Puts the project on the web with Netlify, Vercel, or Cloudflare, and adds Google sign-in through Supabase. Use when the project needs a browser interface or sign-in.
+description: Puts the project on the web with Netlify (default), Vercel, or Cloudflare, connected to GitHub so every push updates the site, and adds Google sign-in through Supabase. Use when the person will use their project in a browser.
 ---
 
 # publish
 
 ## Why
-Your project gets a web address, updates itself when you push code, and knows who's using it.
+Your app gets its own web address, updates itself every time you save code to GitHub, and knows who is signed in.
 
 ## Choose
 
-| Host | Best when |
-|---|---|
-| Netlify (default) | Any framework, quickest start |
-| Vercel | Built with Next.js |
-| Cloudflare | Cost and speed at scale matter most |
+> **Default: Netlify** (free plan). Works with any framework. Say "ok" to keep it.
+> **Other options:** Vercel (best fit for Next.js apps), Cloudflare Pages (lowest cost at high traffic).
 
-All deploy from GitHub on every push and have free plans. None of them keep a process running; that's the `always-on` block.
+> **Sign-in default: Google.** Say "ok" to keep it.
+> **Other options:** email magic links (Supabase sends a sign-in link), GitHub sign-in.
 
 ## Build
 
-**App**
-1. If there's no app yet, make the smallest one: a home page, sign in, and save and show one item from Supabase. Vite + React for Netlify or Cloudflare, Next.js for Vercel.
-2. Build it locally and fix every error first.
+**App.** If no app exists, create the smallest version of their idea: a home page, sign in, and one screen that saves and shows one record from the database. Vite + React for Netlify or Cloudflare, Next.js for Vercel. Run the production build and fix every error.
 
-**Host**
-1. **Your turn:** sign up on the host with GitHub, Free plan, and give it access to this one repo.
-2. Set the build command, output folder, and public variables (`SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, with the framework's prefix if needed).
+**Host (Netlify).**
+1. `which netlify`. Missing: `npm install -g netlify-cli`.
+2. `netlify login`. **Your turn:** approve in the browser.
+3. `netlify init` to create the site and connect it to this GitHub repo with automatic deploys. **Your turn:** approve Netlify's access to this one repo when GitHub asks.
+4. Set the public variables yourself: `netlify env:set VITE_SUPABASE_URL ...` and `netlify env:set VITE_SUPABASE_ANON_KEY ...` (use the framework's prefix).
+5. Push to GitHub and watch the deploy finish.
 
-**Google sign-in**
+For Vercel, use `vercel login`, `vercel link`, `vercel env add`, and `vercel git connect`. For Cloudflare, use `wrangler login` and `wrangler pages project create`.
 
-OAuth lets people sign in with Google without your app ever seeing their password. It's a round trip: the app sends people to Google, Google returns them to Supabase, Supabase returns them to the app. Each hop needs its address registered.
+**Google sign-in.** OAuth is the handshake that lets someone sign in with Google without your app ever seeing their password. The person goes from your app to Google, Google sends them to Supabase, and Supabase sends them back to your app. Each stop needs the next address registered.
 
-1. Read Supabase's Google callback address (Authentication, Sign In / Providers, Google).
-2. **Your turn:** in console.cloud.google.com, create a project, set up Google Auth Platform as External in Testing, add yourself as a test user, then create a Web client with Supabase's callback as the redirect.
-3. **Your turn:** paste the Client ID and secret straight into Supabase's Google settings. Not into chat.
-4. In Supabase URL Configuration, set the Site URL to the live address and add it to Redirect URLs.
-5. Add sign-in, sign-out, and session handling. Ask Google for basic profile only.
+1. Your callback address is `https://<ref>.supabase.co/auth/v1/callback`.
+2. Google requires a person to create the sign-in client. If you have a browser tool, open console.cloud.google.com and fill in each screen, pausing for sign-in. **Your turn** for: signing in to Google, and clicking Create. The settings:
+   - New project named after their app
+   - Google Auth Platform: External, Testing, their email as a test user
+   - Clients, Create client, Web application, with the callback address above as the redirect
+3. **Your turn:** paste the Client ID and Client secret into `.env` as `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`. Read them from `.env` yourself; keep them out of chat.
+4. Turn on Google in Supabase and set the return addresses through the Supabase Management API, using the token from `supabase login`: enable the Google provider with the ID and secret, set the site URL to the live address, and add the live address and `http://localhost:5173` to the allowed redirects.
+5. Add sign-in, sign-out, and session handling to the app. Request basic profile only. Push.
 
 ## Prove
-- Agent: production build passes; live URL returns the home page; a signed-out request can't read items.
-- Person: signs in on the live site, saves an item, refreshes, still sees it; opens a private window and sees nothing private.
+- Agent: the deploy succeeded; the live address returns the home page; a signed-out request reads zero private rows.
+- Person: signs in on the live site, saves something, refreshes and still sees it, then opens a private window and sees no private data.

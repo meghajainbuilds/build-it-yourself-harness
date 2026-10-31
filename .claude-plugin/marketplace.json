@@ -5,9 +5,9 @@
   },
   "plugins": [
     {
-      "name": "build-it-yourself-harness",
+      "name": "build-it",
       "source": "./",
-      "description": "Building blocks for personal projects. Pick what you need."
+      "description": "Type /build-it:start, describe your idea, and the harness sets up the accounts your project needs."
     }
   ]
 }
