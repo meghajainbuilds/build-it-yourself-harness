@@ -44,7 +44,7 @@ Here is the path, using Meal-prep (a web app where AI plans the weekly menu and 
 
 **1. Install the harness.** In Claude Code:
 ```
-/plugin marketplace add YOUR_GITHUB/build-it-yourself-harness
+/plugin marketplace add meghajainbuilds/build-it-yourself-harness
 /plugin install build-it@build-it-yourself-harness
 ```
 
@@ -121,7 +121,7 @@ Most personal projects run on the coding plan plus a few dollars of AI usage. Pr
 ## Using Codex
 
 ```
-npx skills add YOUR_GITHUB/build-it-yourself-harness
+npx skills add meghajainbuilds/build-it-yourself-harness
 ```
 Open your project folder in Codex and say: *Start the build-it harness.* `AGENTS.md` gives Codex the same instructions Claude Code uses.
 
