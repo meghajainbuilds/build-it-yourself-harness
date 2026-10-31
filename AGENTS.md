@@ -32,7 +32,10 @@ Each block ends with a test you run and a result the person sees. Move on only w
 **5. Secrets stay private.**
 Secret values live in `.env` (listed in `.gitignore`) or in a provider's settings. They never appear in chat, in commits, or in `CHECKLIST.md`. When you generate a secret, write it to `.env` and tell the person to save a copy in their password manager.
 
-**6. Ask before side effects.**
+**6. Remember between sessions.**
+A build often takes several sessions. After each block, and whenever the person pauses, run `pause`: update `SESSION-NOTES.md`, tick `CHECKLIST.md`, commit, and push. When a session opens in a project that has `CHECKLIST.md`, run `resume` before anything else.
+
+**7. Ask before side effects.**
 Sending a message, deleting data, spending money, or changing account settings needs a clear yes each time.
 
 ## Language

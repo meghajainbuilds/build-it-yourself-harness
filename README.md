@@ -15,6 +15,7 @@ Works in Claude Code and OpenAI Codex, with any AI model.
 - **Recommends a default at every step** and names the other options, so you choose quickly
 - **Writes and tests the code**, and proves each step works before moving on
 - **Shows a tracker** of where you are, and **saves a checklist** in your repo
+- **Remembers between sessions**, so each session picks up where the last one stopped
 
 ## What you do
 
@@ -76,7 +77,16 @@ Meal-prep  |  a web app with AI
 ```
 Say **status** anytime to see it.
 
-**8. Your app is live.** Every step has been tested, and the checklist in your repo records what was set up and where it lives.
+**8. Pause anytime.** Say **pause**. The harness saves `SESSION-NOTES.md` with what's done, what's in progress, your decisions, and the next step, then commits it to GitHub.
+
+**9. Pick up where you left off.** Open Claude Code in the project folder, on any computer. The harness loads your notes automatically and opens with:
+```
+Last time:  finished the Database; Netlify site created.
+Next:       Google sign-in, about 5 minutes.
+Ready to continue?
+```
+
+**10. Your app is live.** Every step has been tested, and the checklist in your repo records what was set up and where it lives.
 
 ## Shapes
 

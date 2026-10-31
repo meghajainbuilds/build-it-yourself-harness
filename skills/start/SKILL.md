@@ -73,7 +73,10 @@ Wait for their yes.
 1. Write `harness.config.json` from `harness.config.example.json` with their choices.
 2. Run `github`. It creates the repo and `CHECKLIST.md` (see `checklist`).
 3. Show the tracker (see `status`) and tell them they can say "status" anytime.
-4. Run the remaining blocks in order: database, publish, models, always-on, messaging.
+4. Run the remaining blocks in order: database, publish, models, always-on, messaging. After each block, run `pause` to save progress.
+5. Tell them once: "You can stop anytime by saying pause. Next session, I'll pick up where we left off."
+
+If `CHECKLIST.md` already exists in the folder, this is a returning build: run `resume` instead.
 
 ## Prove
 - Agent: `harness.config.json` lists the chosen blocks; the repo exists on GitHub with `CHECKLIST.md`.
